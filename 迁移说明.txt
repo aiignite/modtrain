@@ -1,0 +1,5 @@
+迁移步骤
+1.
+安装依赖：pip install -r requirements.txt
+2.
+运行应用：python app/main.py

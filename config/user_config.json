@@ -1,0 +1,33 @@
+{
+  "camera": {
+    "default_id": 0,
+    "resolution": {
+      "width": 640,
+      "height": 480
+    }
+  },
+  "model": {
+    "default_path": "yolo/yolov8n.pt",
+    "conf_threshold": 0.5,
+    "iou_threshold": 0.45
+  },
+  "training": {
+    "epochs": 100,
+    "batch_size": 16,
+    "learning_rate": 0.001,
+    "img_size": 640
+  },
+  "data": {
+    "train_ratio": 0.8,
+    "val_ratio": 0.1,
+    "test_ratio": 0.1
+  },
+  "defects": [
+    "solder_bridge",
+    "missing_solder",
+    "insufficient_solder",
+    "excess_solder",
+    "tombstoning",
+    "misalignment"
+  ]
+}

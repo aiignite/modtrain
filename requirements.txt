@@ -1,0 +1,23 @@
+# 基础依赖
+numpy
+opencv-python
+pyqt5
+pyqt5-sip
+pyqtgraph  # 用于绘制训练曲线
+
+# 深度学习依赖
+torch
+torchvision
+ultralytics  # YOLOv8官方库
+
+# 工具依赖
+pillow
+tqdm
+matplotlib
+pandas
+scikit-learn
+onnx
+tensorboard
+
+# 系统依赖
+psutil  # 监控系统资源

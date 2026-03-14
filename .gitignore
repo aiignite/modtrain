@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.venv/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Model weights (large files)
+*.pt
+*.pth
+*.weights
+*.onnx
+*.engine
+*.tflite
+
+# Training data and results
+data/dataset/
+data/imported/
+data/raw/
+data/processed/
+data/unlabeled/
+data/testdata/
+data/annotations/
+data/inference_results/
+data/logs/
+data/recordings/
+data/offline_dataset/
+data/processes/
+data/models/
+data/templates/
+
+# Training outputs
+runs/train/
+runs/detect/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Distribution
+*.manifest
+*.spec
