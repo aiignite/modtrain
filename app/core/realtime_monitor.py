@@ -96,13 +96,18 @@ class RealTimeMonitor:
     
     def load_config(self):
         """加载用户配置文件"""
-        config_file = os.path.join("config", "user_config.json")
+        project_root = self.get_project_root() if hasattr(self, 'get_project_root') else os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        config_file = os.path.join(project_root, "config", "user_config.json")
         if os.path.exists(config_file):
             try:
                 with open(config_file, 'r', encoding='utf-8') as f:
                     config = json.load(f)
                     model_config = config.get("model", {})
-                    self.coco_model_path = model_config.get("default_path", "yolov8n.pt")
+                    default_path = model_config.get("default_path", "yolov8n.pt")
+                    # 如果是相对路径，转换为绝对路径
+                    if default_path and not os.path.isabs(default_path):
+                        default_path = os.path.join(project_root, default_path)
+                    self.coco_model_path = default_path
                     print(f"加载配置: COCO模型路径 = {self.coco_model_path}")
             except Exception as e:
                 print(f"加载配置文件失败: {e}")
@@ -218,7 +223,8 @@ class RealTimeMonitor:
     
     def load_class_mapping(self):
         """加载类别映射配置文件"""
-        mapping_file = os.path.join("config", "class_mapping.json")
+        project_root = self.get_project_root() if hasattr(self, 'get_project_root') else os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        mapping_file = os.path.join(project_root, "config", "class_mapping.json")
         if os.path.exists(mapping_file):
             try:
                 with open(mapping_file, 'r', encoding='utf-8') as f:
@@ -237,7 +243,8 @@ class RealTimeMonitor:
     def draw_chinese_text(self, img, text, position, font_size=12, color=(0, 255, 0)):
         """在图片上绘制中文"""
         # 加载中文字体
-        font_path = os.path.join("config", "fonts", "simhei.ttf")
+        project_root = self.get_project_root() if hasattr(self, 'get_project_root') else os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        font_path = os.path.join(project_root, "config", "fonts", "simhei.ttf")
         if os.path.exists(font_path):
             try:
                 # 使用PIL绘制中文
@@ -542,21 +549,29 @@ class RealTimeMonitor:
         """触发报警 - 静默处理，不打印"""
         pass
     
+    def get_project_root(self):
+        """获取项目根目录"""
+        # 当前文件在 app/core/ 目录下，项目根目录是上两级
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        return os.path.dirname(os.path.dirname(current_dir))
+
     def load_pose_model(self, model_path=None):
         """
         @brief 加载姿态估计模型
         @param model_path: 模型路径，默认使用 yolov8n-pose.pt
         @return: 是否加载成功
         """
+        project_root = self.get_project_root()
+
         if model_path is None:
-            model_path = os.path.join("yolo", "yolov8n-pose.pt")
-        
+            model_path = os.path.join(project_root, "yolo", "yolov8n-pose.pt")
+
         if not os.path.exists(model_path):
             print(f"姿态模型不存在: {model_path}")
             default_pose_models = [
-                os.path.join("yolo", "yolov8n-pose.pt"),
-                os.path.join("yolo", "yolo26m-pose.pt"),
-                os.path.join("yolo", "yolov8m-pose.pt")
+                os.path.join(project_root, "yolo", "yolov8n-pose.pt"),
+                os.path.join(project_root, "yolo", "yolo26m-pose.pt"),
+                os.path.join(project_root, "yolo", "yolov8m-pose.pt")
             ]
             for path in default_pose_models:
                 if os.path.exists(path):
